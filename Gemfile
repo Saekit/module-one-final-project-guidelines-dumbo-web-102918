@@ -9,3 +9,4 @@ gem "geokit"
 gem "geocoder"
 gem "rest-client"
 gem 'tty-prompt'
+gem 'colorize'

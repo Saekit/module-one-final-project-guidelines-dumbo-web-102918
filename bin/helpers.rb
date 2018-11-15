@@ -1,15 +1,17 @@
 require 'pry'
 require 'Geocoder'
 require 'RestClient'
+require 'colorize'
+require 'colorized_string'
 
 def welcome
-  puts "Welcome to What Should I Wear Today?"
+  puts "Welcome to What Should I Wear Today?".colorize(:cyan)
 end
 
 def username
-  puts "Please enter a username"
+  puts "What's your name?".colorize(:cyan)
   username = gets.chomp
-  puts "Welcome #{username}"
+  puts "Welcome #{username}".colorize(:cyan)
   User.find_or_create_by(username: username)
 end
 
@@ -32,7 +34,6 @@ def delegate(choice, user)
     current_temp(user)
   when 2
     create_closet(user)
-    # closet_menu
   when 3
     see_closet(user)
   end
@@ -44,7 +45,7 @@ end
 
 def current_temp(user)
   system "clear"
-  puts "Please enter a city, state"
+  puts "Where would you like to go?".colorize(:cyan)
   input = gets.chomp
 
   results = Geocoder.search("#{input}")
@@ -55,7 +56,7 @@ def current_temp(user)
    # temperatureHigh = resp_hash["daily"]["data"][0]["temperatureHigh"]
    # temperatureLow = resp_hash["daily"]["data"][0]["temperatureLow"]
    # chance_of_rain = resp_hash["daily"]["data"][0]["precipProbability"]
-   # weather_icon = resp_hash["daily"]["data"][0]["icon"]
+   weather_icon = resp_hash["daily"]["data"][0]["icon"]
    currentTemperature = resp_hash["currently"]["temperature"]
    # currentTemperature
    # binding.pry
@@ -64,17 +65,45 @@ def current_temp(user)
     # binding.pry
   end
     stuff2 = stuff.map {|clothes| clothes.clothing_name}
-    puts "Okay, it's #{currentTemperature}F in #{input.capitalize} right now..."
-    puts "Rummaging through your clothes...😉"
+    puts "Okay, it's #{currentTemperature}F with #{weather_icon} in #{input.capitalize} right now...".colorize(:cyan)
+    sleep(2)
+    puts "Rummaging through your clothes...😉".colorize(:cyan)
     sleep(5)
   if stuff.count == 0
-    system 'clear'
-    puts "You have nothing to wear! Let's go shopping...🤑"
+    puts "You have nothing to wear! Let's go shopping...🤑".colorize(:cyan)
     menu
   else
-    system 'clear'
-    puts "Here's some good options for today 😎"
+    puts "Here's some good options for today 😎".colorize(:cyan)
     puts stuff2.each {|clothes| clothes}
+    case weather_icon
+    when "rain"
+      puts "Don't get wet, bring an 🌂".colorize(:cyan)
+    when "clear-day"
+      puts "Today is the day for 🕶".colorize(:yellow)
+    when "partly-cloudy-day"
+      puts "Enjoy your day! 🌤".colorize(:yellow)
+    when "partly-cloudy-night"
+      puts "Enjoy your evening! ⛅️".colorize(:cyan)
+    when "snow"
+      puts "Amir says: 'Buy a fur cap!'".colorize(:cyan)
+    when "fog"
+      puts "You've unlocked a riddle! Solve it to get a prize:".colorize(:red)
+      puts "Only one color, but not one size,".colorize(:yellow)
+      puts "Stuck at the bottom, yet easily flies,".colorize(:yellow)
+      puts "Present in sun, but not in rain,".colorize(:yellow)
+      puts "Doing no harm, and feeling no pain.".colorize(:yellow)
+      puts "What am I?".colorize(:yellow)
+      answer = gets.chomp.downcase
+      if answer == "a shadow"
+        puts "YES!"
+      else
+        puts "Sorry!"
+      end
+    when "wind"
+      puts "Hold on to your hat! 💨".colorize(:cyan)
+    when "cloudy"
+      puts "It's cloudy, but keep your head up! 😊".colorize(:cyan)
+    end
     menu
   end
 end
@@ -82,7 +111,7 @@ end
 def create_closet(user)
   system "clear"
   prompt = TTY::Prompt.new
-  closet = prompt.multi_select("What clothing do you own?", Clothing.clothingNames)
+  closet = prompt.multi_select("What clothing do you own?".colorize(:cyan), Clothing.clothingNames)
   user.clothing_ids = closet
   menu
 end
@@ -96,7 +125,7 @@ end
 
 def see_closet(user)
   system "clear"
-  puts "Here is your closet:"
+  puts "Here is your closet:".colorize(:cyan)
   puts closet(user)
   menu
 end

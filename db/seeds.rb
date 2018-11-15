@@ -11,10 +11,10 @@ Clothing.destroy_all
 User.create(username: "Raquel")
 
 clothing = {
-  tops: {"tshirt" => [65, 110], "tanktop" => [70, 110], "long sleeve shirt" => [-20, 60], "dress" => [50, 110], "sweater" => [-20, 60], "hoodie" => [-20, 60], "thermal top" => [-20, 40], "light jacket" => [40, 60], "raincoat" => [40, 60], "wintercoat" => [-20, 40]},
-  bottoms: {"shorts" => [60, 110], "skirt" => [60, 110], "dress pants" => [60, 80], "jeans" => [-20, 110], "thermal underwear" => [-20, 30], "leggings" => [40, 60]},
-  footwear: {"dress shoes" => [30, 80], "boots" => [-20, 50], "sandals" => [65, 110], "sneakers" => [40, 80]},
-  accessories: {"sunglasses" => [60, 110], "hat" => [60, 110], "beanie" => [-20, 60], "scarf" => [-20, 60]}
+  tops: {"T-Shirt" => [60, 110], "Tanktop" => [70, 110], "Long sleeve shirt" => [-20, 65], "Dress" => [50, 110], "Sweater" => [-20, 60], "Hoodie" => [-20, 65], "Thermal top" => [-20, 40], "Light jacket" => [40, 60], "Raincoat" => [40, 60], "Wintercoat" => [-20, 40]},
+  bottoms: {"Shorts" => [60, 110], "Skirt" => [60, 110], "Dress pants" => [60, 80], "Jeans" => [-20, 110], "Thermal underwear" => [-20, 30], "Leggings" => [40, 60]},
+  footwear: {"Dress shoes" => [30, 80], "Boots" => [-20, 50], "Sandals" => [65, 110], "Sneakers" => [40, 80]},
+  accessories: {"Sunglasses" => [60, 110], "Hat" => [60, 110], "Beanie" => [-20, 60], "Scarf" => [-20, 60]}
 }
 clothingTemp= clothing[:tops].map do |top, temp|
     Clothing.create(clothing_name: top, min_temp:temp[0], max_temp:temp[1])

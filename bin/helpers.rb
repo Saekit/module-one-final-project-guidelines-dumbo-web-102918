@@ -52,6 +52,10 @@ def current_temp(user)
   input = gets.chomp
 
   results = Geocoder.search("#{input}")
+  if results.empty?
+    puts "Did you spell that right?"
+    menu
+  else
   lat_and_lon = results.first.coordinates
   resp_string = RestClient.get("https://api.darksky.net/forecast/eb71c14bc64ff622d7d592881b708917/#{lat_and_lon[0]},#{lat_and_lon[1]}")
   resp_hash = JSON.parse(resp_string.body)
@@ -160,6 +164,7 @@ HEREDOC
     end
     menu
   end
+  end
 end
 
 def create_closet(user)
@@ -173,9 +178,6 @@ end
 def closet(user)
   user.clothings.map {|clothing| "#{clothing.clothing_name}"}
 end
-
-
-
 
 def see_closet(user)
   system "clear"

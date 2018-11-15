@@ -23,7 +23,8 @@ def menu
     menu.choice 'What should I wear?', 1
     menu.choice 'Create or edit closet', 2
     menu.choice 'See closet', 3
-    menu.choice 'Exit', 4
+    menu.choice 'Delete closet', 4
+    menu.choice 'Exit', 5
   end
 
 end
@@ -36,6 +37,8 @@ def delegate(choice, user)
     create_closet(user)
   when 3
     see_closet(user)
+  when 4
+    delete_closet(user)
   end
 
 end
@@ -95,7 +98,58 @@ def current_temp(user)
       puts "What am I?".colorize(:yellow)
       answer = gets.chomp.downcase
       if answer == "a shadow"
-        puts "YES!"
+        puts <<-HEREDOC
+        ----.:--:-.-`---.:
+
+
+          `
+         +.
+       .+`
+      :/   -`
+     +-  `+`
+    +-  .+
+   -+  `+
+   s   o                                .-:/+oossssssso++/:-.                          -`
+  `o  :-                           .:+syyyyyyyyyyyyyyyyyyyyyyys+:.                      :.
+  :/  o                        `:oyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy+:`                   :.
+  /: `o                     `:oyyyyyyyyyyyyhdNy/+hyyyyyyyyyyyyyyyyyyyyo:`                 +
+  ./ -/      `-/+oooo/.   .+yyyyyyyyyyyyyho`+-   /hhhyyyyyyyyyyyyyyyyyyyy+.               `+
+   / -/    :osoooooooos/.oyyyyyyyyyyyyyyy+ -/+ossssssssyyhs+/:::/oyhyyyyyyy+.              :.
+   - :/  :sooos+/+soooodyyyyyyyyyyyyyyyydosoooooooooooooos.      /Mdhyyyyyyyy/`             o
+     .o osooy/`   +soohhyyyyyyyyyyyyyyhyooooooossssooooooos/.    `:`dyyyyyyyyys-            +.
+      y-ysoy.    :yoohhyyyyyyyyyyyyyyhyyyyyyyyyyyyyyhhyyyysoso/-`  +hyyyyyyyyyyy/           `+
+      sohoos    .hooydyyyyyhhhhhyyyydsyyyyyyyyhdddyyhddhyyyhhysossshyyyyyyyyyyyyy+          `s`.
+      .dyooy+`  osoodyyyhhysooosdyyydoyyyyyyyyNMMMmNMMMMNyyyyyhyooohyyyyyyyyyyyhhho/:       .y  -
+      +s/yoooy+ yooosyyyooossooosdyydyohyyyyyh+/o+/+shhyyyyyyyhsooyhyyyyyyyyhhysoooooyo.     y/..-
+     /-.dsooooy/soooooooshhhdyooodyyydoshyyyyhooosyyyyyyyyyyhyooohhyyyyyyyyyhooooooooooy/    y o``
+ /oood+hsdoooso`shooooydhyyydoooodyyydsooyyyyyyyyyyyyyyyyhyyoooydyyyyyyyyyyhsoooyyyysooos+  `s /:
+ :oshdymosyooso/yhhhhhyyyyyydoooomyyyydsooshyyyyyyyyyyhhyooooydyyyyyyyyyyyyhhooshyyyhhooos+ +:`/-.
+`://yyhysooyoyysdyyyyyyyyyyydooooshhhyhhyooosyyyyyyyysoooosydyyhhhhhhhyyyyyydsoodyyyy/hoooyoy /` :
+-osshyshdoyms+`hsdyyyyyyyyyydsooosyyso+:osysoooooooooosyyso/ohyooooooshhyyyyydsosdyyy/+sooods+y- `
+   `+hssyyysy` ohyyyyyyyyyyyydhooosyyshy/:/o+osssssoos+/::/dhsoooooooooyhyyyyydsosdhhsosoodyodssy+
+   -oho:oyss`  +yyyyyyyyyyyyyyyhhhmdhyoossh/::+s/::::hs/:::sdooooydhdyoodyyyyyydyohyosssodhoyhyossy`
+     `/ -:.    :yyyyyyyyyyyyyyyyyhyoooooys/+ossoyo:::yosso+/hooyhhyyydyoodyyyyyydyhsy/ ddhysdsso/yoo
+               .yyyyyyyyyyyyyyyyydoooooysssooooooosooysoooosyydyyyyyyydyoohhyyyyydohh.+hosydy+oh`yso
+                oyyyyyhddhhyyyyydsoooooooooooooooooooooooooooohyyyyyyyydyooshhhhyoods-/sy+ms+ooh `-
+                .yhyyhhyyyyyyyyydooooooooooooooooooooooooooooodyyyyyyyyydyoooooooohh` /sodso hs+
+                -o-/hhhyyyyyyyydsooooooooooooooooooooooooooooodyyyyyyyyyyhhyooosyhh:   //:-  -.
+                +// `:yyyyyyyyydoooooooooooooooooooooooooooooyhyyyyyyyyyyyyyhhhhyy+  .+.
+               .:-:ohyyyyyyyyyydooooooooooooooooooooooooooooodyyyyyyyyyyyyyyyyyyy+ .:-
+              -: o  +yyyhhhhyhhmsssssooooooooooooooooooooooosdyhhyyyyyyyyyyyyyyy/`.`
+              o  +``:+/-.`       ``..--:://+ooossssyyyyyyssodyhhdhyhhyyyyyyyyys-
+              ::` -:. `/`   /+ --                     ``.-:::/+osydddddddhhyy+`
+                :+--`  od. /N.ydm    :mN.    :hh`    /o`    `      `-/oydhmh+/
+                o       yd+N:h+-N   .N:ys   od.N/   hysh   ohm.  o:    - -++o+:-
+               -/       `mm-sy:+N   yy oh  od` ys  +d -M` -m`oy   y+  /y :`:-o:y-
+               ::      .dh`+/.-+m  :N++yd .N+++dy  m+..M- sy`/m   `d/.m.oy+o `s:
+                s     +N+ /:   /d `m:  +d so   sy .N::/m+ ho:oM    `dm--d`d`  +.
+                .+.   .`  `    oy o+   +d`m`   sy +y   ho d. -M`   /d-`h.o:   s
+                  -::.         -- -    /d++    sy d`   sy`d  .M` :hs` s- .  .+-
+                     `-::::-`           ``     ho`:    +d`o  /m:hs. ./`.+.:/:
+                           .:::::::-.`         -`      `-    `-    `:/:::-
+                                   `.-:::::::::/:::::::::::::::::::-`
+
+HEREDOC
       else
         puts "Sorry!"
       end
@@ -125,72 +179,17 @@ end
 
 def see_closet(user)
   system "clear"
-  puts "Here is your closet:".colorize(:cyan)
+  if user.clothings.count == 0
+    puts "You have no clothes!".colorize(:red)
+  else
+    puts "Here is your closet:".colorize(:cyan)
+  end
   puts closet(user)
   menu
 end
-#
-# def closet_menu
-#   prompt = TTY::Prompt.new
-#   prompt.select("What would you like to do?") do |menu|
-#     menu.enum '.'
-#
-#     menu.choice 'Tops', 1
-#     menu.choice 'Bottoms', 2
-#     menu.choice 'Footwear', 3
-#     menu.choice 'Accessories', 4
-#     menu.choice 'Back', 5
-# end
-#
-# def tops_closet(user)
-#   prompt = TTY::Prompt.new
-#   closet = prompt.multi_select("What tops do you own?", Clothing.clothingNames)
-#   user.clothing_ids = closet
-#   closet_menu
-# end
-#
-# def bottoms_closet(user)
-#   prompt = TTY::Prompt.new
-#   closet = prompt.multi_select("What bottoms do you own?", Clothing.clothingNames)
-#   user.clothing_ids = closet
-#   closet_menu
-# end
-#
-# def footwear_closet(user)
-#   prompt = TTY::Prompt.new
-#   closet = prompt.multi_select("What footwear do you own?", Clothing.clothingNames)
-#   user.clothing_ids = closet
-#   closet_menu
-# end
-#
-# def accessories_closet(user)
-#   prompt = TTY::Prompt.new
-#   closet = prompt.multi_select("What accessories do you own?", Clothing.clothingNames)
-#   user.clothing_ids = closet
-#   closet_menu
-# end
-#
-# def closet_delegate(choice, user)
-#   case choice
-#   when 1
-#     tops_closet
-#   when 2
-#     bottoms_closet
-#   when 3
-#     footwear_closet
-#   when 4
-#     accessories_closet
-#   when 5
-#     menu
-#   end
-#
-# end
-#
-# def coordinates
-#   results = Geocoder.search("Brooklyn, NY")
-#   lat_and_lon = results.first.coordinates
-#   resp_string = RestClient.get("https://api.darksky.net/forecast/eb71c14bc64ff622d7d592881b708917/#{lat_and_lon[0]},#{lat_and_lon[1]}")
-#   resp_hash = JSON.parse(resp_string.body)
-# end
-#
-# coordinates
+
+
+def delete_closet(user)
+  user.clothings.destroy_all
+  menu
+end

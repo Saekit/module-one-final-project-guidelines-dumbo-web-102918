@@ -7,6 +7,6 @@ welcome
 user = username
 choice = menu
 
-while choice != 4 do
+while choice != 5 do
   choice = delegate(choice, user)
 end

@@ -1,9 +1,6 @@
 require 'pry'
 
-# ["Tank top", "T-shirt/blouse", "Long sleeve shirt", "Sweater/hoodie", "Shorts", "Long pants/dress pants", "Stockings/leggings/long socks", "Raincoat", "Winter coat", "Sneakers", "Boots", "Sandals"].each do |clothing|
-#   Clothing.create(clothing_name: clothing)
-# end
-
+# when seed, will destroy info and recreate
 User.destroy_all
 Clothing.destroy_all
 
@@ -16,6 +13,7 @@ clothing = {
   footwear: {"Dress shoes" => [30, 80], "Boots" => [-20, 50], "Sandals" => [65, 110], "Sneakers" => [40, 80]},
   accessories: {"Sunglasses" => [60, 110], "Hat" => [60, 110], "Beanie" => [-20, 60], "Scarf" => [-20, 60]}
 }
+
 clothingTemp= clothing[:tops].map do |top, temp|
     Clothing.create(clothing_name: top, min_temp:temp[0], max_temp:temp[1])
   end
@@ -33,4 +31,3 @@ end
 clothingTemp= clothing[:accessories].map do |accessories, temp|
   Clothing.create(clothing_name: accessories, min_temp:temp[0], max_temp:temp[1])
 end
-# accessories = clothing[:accessories].keys.each { |clothing| Clothing.create(clothing_name: clothing)}

@@ -1,9 +1,9 @@
 #a short description, install instructions, a contributors guide and a link to the license for your code.
 
 This project aims to log the clothing the user owns into the database and return the appropriate clothing based on the weather of the location the user would like to visit.
-Install the gemfile with bundle install and run the run file.
 The user must first enter their name, then create a closet; if the user already created a closet, the user can edit the clothing in their closet or go straight to the "What should I wear?" choice.
 Enter a location and watch it go!
+Install the gemfile with bundle install and run the run file.
 
 
 

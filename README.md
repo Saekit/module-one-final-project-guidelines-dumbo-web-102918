@@ -1,13 +1,20 @@
 #a short description, install instructions, a contributors guide and a link to the license for your code.
 
+Description:
 This project aims to log the clothing the user owns into the database and return the appropriate clothing based on the weather of the location the user would like to visit.
 The user must first enter their name, then create a closet; if the user already created a closet, the user can edit the clothing in their closet or go straight to the "What should I wear?" choice.
 Enter a location and watch it go!
-Install the gemfile with bundle install and run the run file.
+
+Instructions:
+1. Install the gemfile first: type "bundle install" in the command line,  
+2. Migrate the tables: type "rake db:migrate" in the command line,
+3. Add the data with the seed file: type "rake db:seed"
+4. Run the program: type "ruby bin/run.rb"
 
 Made By: Amir, Brian, and Raquel
+https://github.com/Saekit/module-one-final-project-guidelines-dumbo-web-102918
 
-
+MIT license
 
 # Module One Final Project Guidelines
 

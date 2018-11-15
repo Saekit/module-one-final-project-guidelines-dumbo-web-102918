@@ -5,6 +5,7 @@ The user must first enter their name, then create a closet; if the user already 
 Enter a location and watch it go!
 Install the gemfile with bundle install and run the run file.
 
+Made By: Amir, Brian, and Raquel
 
 
 

@@ -49,7 +49,7 @@ end
 def current_temp(user)
   system "clear"
   puts "Where would you like to go?".colorize(:cyan)
-  input = gets.chomp
+  input = gets.chomp.strip
 
   results = Geocoder.search("#{input}")
   if results.empty?
@@ -100,7 +100,7 @@ def current_temp(user)
       puts "Present in sun, but not in rain,".colorize(:yellow)
       puts "Doing no harm, and feeling no pain.".colorize(:yellow)
       puts "What am I?".colorize(:yellow)
-      answer = gets.chomp.downcase
+      answer = gets.chomp.downcase.strip
       if answer == "a shadow"
         puts <<-HEREDOC
         ----.:--:-.-`---.:
@@ -155,7 +155,7 @@ def current_temp(user)
 
 HEREDOC
       else
-        puts "Sorry!"
+        puts "Nope, that's not it!"
       end
     when "wind"
       puts "Hold on to your hat! 💨".colorize(:cyan)

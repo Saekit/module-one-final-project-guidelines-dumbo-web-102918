@@ -5,6 +5,7 @@ require 'colorize'
 require 'colorized_string'
 
 def welcome
+  system 'clear'
   puts "Welcome to What Should I Wear Today?".colorize(:cyan)
 end
 

@@ -6,10 +6,10 @@ The user must first enter their name, then create a closet; if the user already 
 Enter a location and watch it go!
 
 Instructions:
-1. Install the gemfile first: type "bundle install" in the command line,  
-2. Migrate the tables: type "rake db:migrate" in the command line,
-3. Add the data with the seed file: type "rake db:seed"
-4. Run the program: type "ruby bin/run.rb"
+1. Install the gemfile first: type `bundle install` in the command line,  
+2. Migrate the tables: type `rake db:migrate` in the command line,
+3. Add the data with the seed file: `rake db:seed`
+4. Run the program: `ruby bin/run.rb`
 
 Made By: Amir, Brian, and Raquel
 https://github.com/Saekit/module-one-final-project-guidelines-dumbo-web-102918
